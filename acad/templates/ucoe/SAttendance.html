@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% load staticfiles %}
+  <title>SAttendance</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'bootstrap-3.3.5-dist/css/bootstrap.min.css' %}">
+  <script src="{% static 'bootstrap-3.3.5-dist/js/jquery.min.js' %}"></script>
+  <script src="{% static 'bootstrap-3.3.5-dist/js/bootstrap.min.js' %}"></script>
+  </head>
+  <body>
+  <div class="container-fluid" style="background-color:#5a687b;color:white;text-align:center;">
+<br>
+  <h2>Attendance</h2>
+<ul class="nav navbar-nav navbar-right">
+		 <li class="dropdown">
+    <a href="" style="color:#c0c7d1;" class="dropdown-toggle"  data-toggle="dropdown"><span class="glyphicon glyphicon-th-large"></span> Navigation
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu" >
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HOME</a></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Marks</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Attendance</a></li>
+      <li role="presentation" class="divider"></li>  
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Syllabus</a></li>   
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Softwares</a></li>
+		<li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Study Material</a></li>   
+    </ul>
+  </li>
+		 <li><a href="#" style="color:#c0c7d1;"><span class="glyphicon glyphicon-refresh"></span> </a></li>
+       <li><a href="{% url "Logout" %}" style="color:#c0c7d1;"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
+
+</div>
+<div class="container-fluid" style="background-color:#dfe3e8;text-align:center;color:#607d8b;">
+{% if student.student.gender == "M" %}
+<h4>Greetings Mr. {{student.student.name}}</h4>
+{% endif %}
+{% if student.gender == "F" %}
+<h4>Greetings Ms. {{student.student.name}}</h4>
+{% endif %}
+</div>
+<br>
+<br>
+<br>
+<div class"row">
+<div class="col-sm-2"></div>
+<div class="col-sm-8">
+<div id="View">
+<div class="form-group" style="text-align: center;">
+      <label for="sel1">Month</label>
+      <select class="form-control" id="sel1">
+        <option>--Month--</option>
+        <option>January</option>
+        <option>February</option>
+        <option>March</option>
+      </select>
+</div>
+<div style="height: 500px;overflow: scroll;text-align: center;">
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Subject</th>
+	{% for date in dates %}
+	        <th>{{date}}</th>
+	{% endfor %}
+        <!--th>14/02/16</th>
+        <th>15/02/16</th>
+<th>16/02/16</th>
+<th>17/02/16</th>
+ <th>13/02/16</th>
+        <th>14/02/16</th>
+        <th>15/02/16</th>
+<th>16/02/16</th>
+<th>17/02/16</th>
+ <th>13/02/16</th>
+        <th>14/02/16</th>
+        <th>15/02/16</th-->
+      </tr>
+    </thead>
+    <tbody>
+	{% for a in att %}
+      <tr>
+	{% for b in a %}
+        <td>{{b}}</td>
+        {% endfor %}
+      </tr>
+	{% endfor %}
+      <!--tr>
+        <td>CD</td>
+        <td>Doe</td>
+        <td>x</td>
+        <td>1</td>
+        <td>2</td>
+<td>3</td>
+<td>x</td>
+<td>4</td>
+<td>x</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+      </tr>
+        <tr>
+        <td>CG</td>
+        <td>Doe</td>
+        <td>1</td>
+        <td>2</td>
+<td>3</td>
+<td>x</td>
+<td>4</td>
+<td>x</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+      </tr-->
+    </tbody>
+  </table>
+</div>
+</div>
+</div>
+</div>
+  </body>
+ </html> 

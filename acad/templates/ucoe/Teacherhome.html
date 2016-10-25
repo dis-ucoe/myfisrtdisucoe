@@ -1,0 +1,109 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+{% load staticfiles %}
+  <title>Teacherhome</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'bootstrap-3.3.5-dist/css/bootstrap.min.css' %}">
+  <script src="{% static 'bootstrap-3.3.5-dist/js/jquery.min.js' %}"></script>
+  <script src="{% static 'bootstrap-3.3.5-dist/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+
+<div class="container-fluid" style="background-color:#607d8b; color:white;text-align:center;">
+  <h2>Department of Computer Engineering</h2>
+  <ul class="nav navbar-nav navbar-right">
+		 <li><a href="{% url 'Cover' %}" style="color:#c0c7d1;"><span class="glyphicon glyphicon-refresh"></span> </a></li>
+       <li><a href="{% url "Logout" %}" style="color:#c0c7d1;"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
+  
+</div>
+<div class="container-fluid" style="background-color:#D3D9DF;text-align:center;color:#607d8b;">
+{% if teacher.teacher.gender == "M" %}
+<h4>Greetings Mr. {{teacher.teacher.name}}</h4>
+{% endif %}
+{% if teacher.teacher.gender == "F" %}
+<h4>Greetings Ms. {{teacher.teacher.name}}</h4>
+{% endif %}
+</div>
+<br><br>
+<div class="row">
+<div class="col-sm-2" style="text-align: center;">
+<br>
+<br>
+<h3 style="background-color: #cfd8dc;">Navigation</h3>
+ 	<div class="list-group" style="background-color: #cfd8dc;">
+  		<a href="{% url "TAtt" %}" class="list-group-item">Attendance</a>
+  		<a href="{% url "TMarks" %}" class="list-group-item">Marks</a>
+  		<a data-toggle="modal" data-target="#share" class="list-group-item">Share</a>
+  		<div id="share" class="modal fade" role="dialog">
+  		<div class="modal-dialog">
+
+		    <!-- Modal content-->
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal">&times;</button>
+        			<h4 class="modal-title">Share</h4>
+      				</div>
+      			<div class="modal-body">
+        			<h3> Your password is : {{teacher.teacher.smb_passwd}}</h3><br/>
+				<a class="btn btn-default" href="ftp://172.16.14.132" >Anon Share</a>
+				<a class="btn btn-default" href="{% url 'DownloadFile' %}">User Share</a>
+      			</div>
+      			<div class="modal-footer">
+        		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      			</div>
+    		</div>
+  		</div>
+</div>
+</div>
+
+</div>
+<div class="col-sm-1"></div>
+<div class="col-sm-5">
+<div class="well" style="background-color: #eceff1;height: 250px;padding:5px 0px 0px 15px;">
+<h3><span class="glyphicon glyphicon-envelope"></span> Message</h3>
+</div>
+ <div class="panel panel-default" style="height:500px;">
+      <div class="panel-heading" style="background-color: #78909c;color:white;"><h2>News Feed</h2></div>
+        <div class="list-group" style="overflow:scroll;height:430px;">
+{% for a in t_news %}
+	{% if a.imp %}
+  <a href="#" class="list-group-item">First item<span class="badge">Imp.</span></a>
+	{% else %}
+  <a href="#" class="list-group-item">First item<span class="badge"></span></a>
+	{% endif %}
+{% endfor %}
+</div></div>
+    </div>
+<div class="col-sm-4">
+<div class="well" style="background-color: #eceff1;height: 250px;">
+<div class="col-sm-5" style="text-align: center;">
+<h3>{{teacher.teacher.name}}</h3>
+<h4>Asstnt. Prof</h4>
+<h5>{{teacher.user.email}}</h5>
+<br>
+<h6>Last Login :<br>{{teacher.user.last_login}}</h6>
+</div>
+<div class="col-sm-2"></div>
+<div class="col-sm-4"> <img src="{% static "user.png" %}" class="img-circle" width="150" height="150">
+</div>
+</div>
+
+<div class="panel panel-default" style="height:500px;">
+      <div class="panel-heading" style="background-color: #78909c;color:white;"><h2>Events</h2></div>
+	    <div class="list-group" style="overflow:scroll;height:430px;">
+  {% for a in t_events %}
+	{% if a.imp %}
+  <a href="#" class="list-group-item">First item<span class="badge">Imp.</span></a>
+	{% else %}
+  <a href="#" class="list-group-item">First item<span class="badge"></span></a>
+	{% endif %}
+{% endfor %}
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

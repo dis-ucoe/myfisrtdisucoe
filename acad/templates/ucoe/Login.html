@@ -1,0 +1,51 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+{% load staticfiles %}
+  <title>LOGIN</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'bootstrap-3.3.5-dist/css/bootstrap.min.css' %}">
+  <script src="{% static 'bootstrap-3.3.5-dist/js/jquery.min.js' %}"></script>
+  <script src="{% static 'bootstrap-3.3.5-dist/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+
+<div class="container-fluid" style="background-color:#607d8b; color:white;text-align:center;">
+  <h2>Department of Computer Engineering</h2>
+  
+</div>
+<div class="container-fluid" style="background-color:#D3D9DF; color:white;">
+<br>
+</div>
+<br>
+<br>
+<br><br>
+<br>
+<div class="row">
+<div class="col-sm-4"></div>
+<div class="col-sm-4">
+<div class="container-fluid" style="background-color:#37474f; color:white;text-align:center;">
+  <h5>{{msg}}</h5>
+  <h3>LOGIN</h3>
+</div>
+<br>
+ <form role="form" action="{% url "Auth" %}" method="post">{% csrf_token %}
+  <div class="form-group">
+    <label for="UserID">User ID:</label>
+    <input type="text" class="form-control" id="UserID"  name="username">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" class="form-control" id="pwd" name="password">
+  </div>
+  <div class="checkbox" style="text-align:right;">
+    <a href="#">Forgot Password..?</a>
+  </div>
+  <button class="btn btn-default" style="width:100%;background-color:#eceff1;">Submit</button>
+</form>
+</div>
+<div class="col-sm-4"></div>
+</div>
+</body>
+</html>

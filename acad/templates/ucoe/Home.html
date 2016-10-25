@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load staticfiles %}
+  <title>LOGIN</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'W3.css' %}">
+</head>
+<body >
+<header  style="text-align:center;">
+<br>
+
+  <h1 style="display:inline;" class="w3-opacity w3-bold w3-text-shadow">Department Of Computer Engineering</h1>
+  <div style="text-align:right;"><a href="/admin"><button class="w3-btn w3-white w3-border">Admin</button></a>
+  <a href="{% url 'Home' %}"><button class="w3-btn w3-white w3-border">Login</button></a>
+	</div>
+</header>
+<br><br>
+<div class="w3-row">
+<div  class="w3-container">
+<div class="w3-half">
+<div style="margin-left:50px;text-align:center;" class=" w3-border">
+<h3 >News & Events</h3>
+  <ul class="w3-ul" style="height:340px;overflow-y:scroll;">
+{% for a in c_news %}
+  <li>{{a.title}}</li>
+{% endfor %}
+  <!--li>Eve</li>
+  <li>Adam</li>
+  <li>Jill</li>
+  <li>Eve</li>
+  <li>Adam</li>
+<li>Jill</li>
+  <li>Eve</li>
+  <li>Adam</li><li>Eve</li>
+  <li>Adam</li>
+<li>Jill</li>
+  <li>Eve</li>
+  <li>Adam</li>
+  <li>Adam</li-->
+
+</ul>
+</div>
+</div>
+<div class="w3-half">
+<div class="row">
+<div  title="Gallery" alt="Gallery" class="w3-half w3-btn w3-ripple" id="w" style="background-image: url({% static 'gallery.png' %});background-repeat: no-repeat;">
+
+</div>
+<div title="Placement" alt="Placement"  class="w3-half w3-btn w3-ripple" id="w" style="background-image: url({% static 'placement2.jpg' %});background-repeat: no-repeat;">
+
+</div>
+</div>
+<div>
+&nbsp;
+<div>
+&nbsp;
+</div>
+</div>
+<div class="row">
+<div  title="Avtivities" alt="Activities" class="w3-half w3-btn w3-ripple" id="w" style="background-image: url({% static 'act.jpg' %});">
+
+</div>
+<div title="Internship" alt="Internship" class="w3-half w3-btn w3-ripple" id="w" style="background-image: url({% static 'intern.jpg' %});">
+
+</div></div>
+</div>
+</div>
+</div>
+<br>
+<div style="background-color:#393e41;color:white;text-align:right;">
+--------------@Design Copyrighted to Jatin Banger-----------------
+</div>
+</body>
+<style type="text/css">
+{
+background: linear-gradient(to right bottom, white 50%, #7788aa 50%);
+}
+#w {
+text-align: center;
+height:165px;
+width:50%;
+# background-size: 320px 160px;
+border-style: solid;
+border-width: 10px;
+background-color: white;
+}
+</style>
+</html>

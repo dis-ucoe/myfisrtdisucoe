@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load staticfiles %}
+  <title>SMarks</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'bootstrap-3.3.5-dist/css/bootstrap.min.css' %}">
+  <script src="{% static 'bootstrap-3.3.5-dist/js/jquery.min.js' %}"></script>
+  <script src="{% static 'bootstrap-3.3.5-dist/js/bootstrap.min.js' %}"></script>
+  </head>
+  <body>
+  <div class="container-fluid" style="background-color:#5a687b;color:white;text-align:center;">
+<br>
+  <h2>Marks</h2>
+<ul class="nav navbar-nav navbar-right">
+		 <li class="dropdown">
+    <a href="" style="color:#c0c7d1;" class="dropdown-toggle"  data-toggle="dropdown"><span class="glyphicon glyphicon-th-large"></span> Navigation
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu" >
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HOME</a></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Marks</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Attendance</a></li>
+      <li role="presentation" class="divider"></li>  
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Syllabus</a></li>   
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Softwares</a></li>
+		<li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Study Material</a></li>   
+    </ul>
+  </li>
+		 <li><a href="#" style="color:#c0c7d1;"><span class="glyphicon glyphicon-refresh"></span> </a></li>
+       <li><a href="{% url "Logout" %}" style="color:#c0c7d1;"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
+
+</div>
+<div class="container-fluid" style="background-color:#dfe3e8;text-align:center;color:#607d8b;">
+{% if student.student.gender == "M" %}
+<h4>Greetings Mr. {{student.student.name}}</h4>
+{% endif %}
+{% if student.gender == "F" %}
+<h4>Greetings Ms. {{student.student.name}}</h4>
+{% endif %}
+</div>
+<br>
+<br>
+<br>
+<div class"row">
+<div class="col-sm-2"></div>
+<div class="col-sm-7" style="text-align: center;">
+ <table class="table table-bordered">
+    <thead style="text-align: center;">
+      <tr>
+        <th style="width: 190px;">Subject</th>
+        
+        <th style="width:67px;">Mst-1</th>
+		<th style="width:67px;">Mst-2</th>
+		<th>Attendance</th>
+		<th style="width:120px;" scope="col" colspan="2">Evaluation	</th>
+		
+      </tr>
+    </thead>
+    <tbody>
+	<tr>
+        <td></td>
+        
+        <td></td>
+		<td></td>
+		<td></td>
+       <td>Asses.</td>
+        
+<td>Sports</td>
+      </tr>
+
+	{% for mark in marks %}<tr>
+        <td>{{mark.subject.subject}}</td>
+        
+        <td>{{mark.mst1}}</td>
+		<td>{{mark.mst2}}</td>
+        <td>{{mark.att}}</td>
+        <td>{{mark.assessment}}</td>
+        <td>{{mark.sports}}</td>
+	</tr>{% endfor %}
+      
+
+
+
+</div>
+</div>
+</body>
+<style type="text/css">
+th{text-align: center;
+}
+input{text-align: center;}
+</style>
+</html>

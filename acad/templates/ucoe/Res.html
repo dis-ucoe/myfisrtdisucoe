@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load staticfiles %}
+  <title>Information</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'bootstrap-3.3.5-dist/css/bootstrap.min.css' %}">
+  <script src="{% static 'bootstrap-3.3.5-dist/js/jquery.min.js' %}"></script>
+  <script src="{% static 'bootstrap-3.3.5-dist/js/bootstrap.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'W3.css' %}">
+</head>
+<body>
+
+<div class="container-fluid" style="background-color:#607d8b; color:white;">
+  <h2>Research,Publications And Academic Contributions</h2>
+  <ul class="nav navbar-nav navbar-right">
+  		 <li class="dropdown">
+    <a href="" style="color:#c0c7d1;" class="dropdown-toggle"  data-toggle="dropdown"><span class="glyphicon glyphicon-th-large"></span> Navigation
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu" >
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HOME</a></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Marks</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Attendance</a></li>
+      <li role="presentation" class="divider"></li>  
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Syllabus</a></li>   
+		<li role="presentation" class="divider"></li>      
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">MyShare</a></li>
+		<li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Softwares</a></li>   
+		<li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Notes</a></li>   
+        
+    </ul>
+  </li>
+		 <li><a href="#" style="color:#c0c7d1;"><span class="glyphicon glyphicon-refresh"></span> </a></li>
+       <li><a href="#" style="color:#c0c7d1;"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul> 
+</div>
+<!--<div class="container-fluid" >
+ <button class="w3-btn w3-right  w3-ripple w3-white">Research/Publications</button>
+ <button class="w3-btn w3-right  w3-ripple w3-white">Academic</button>
+</div>-->
+<br/><br/><br/>
+<div class="row">
+<div class="col-sm-1">
+<h3 style="text-align: center;"></h3>
+<div class="list-group" style="background-color: #cfd8dc;text-align: center;">
+
+</div>
+
+
+</div>
+<div class="col-sm-11" style="text-align:center;">
+<h3>Research/Publications</h3><br/>
+<div style="height:500px;">
+<button  onclick="document.getElementById('id01').style.display='block'" style="border-radius: 100%;" class="w3-btn w3-shadow"><b>+</b></button>
+ <table class="w3-table w3-bordered" style="overflow-y:scroll;" >
+
+<br/>
+
+    <thead>
+      <tr style="background-color: #cfd8dc;">
+        <th>S.No.</th>
+        <th>Title of Paper/Book</th>
+        <th>Journal/Conference</th>
+        <th>Journal/Conference Name</th>
+        <th>ISSN/ISBN No.</th>
+        <th>International/National</th>
+        <th>Names of authors</th>
+        <th><button type="button" class="btn btn-default btn-sm" style="background-color:#cfd8dc;  "><span class="glyphicon glyphicon-trash"></span> Delete All</button>
+      </tr>
+    </thead>
+    <tbody>
+{% for p in pubs %}
+
+     <tr>
+     <td><input type="text" style="border:none;width:50px;outline:none;background-color:#f9f9f9" value="{{p.pk}}"/></td>
+        <td name="title"><a href="" style="color:Blue;">{{p.title}}</a></td>
+        <td><textarea name="Text1" cols="10" rows="2" name="j_c" style="border:none;outline:none;background-color:#f9f9f9">{{p.j_c}}</textarea></td>
+        <td><textarea name="Text1" cols="10" rows="2" name="j_c_name" style="border:none;outline:none;background-color:#f9f9f9">{{p.j_c_name}}</textarea></td>
+        <td><textarea name="Text1" cols="10" rows="2" name="issn_isbn" style="border:none;outline:none;background-color:#f9f9f9">{{p.issn_isbn}}</textarea></td>
+        <td><textarea name="Text1" cols="10" rows="2" name="n_in" style="border:none;outline:none;background-color:#f9f9f9">{{p.n_in}}</textarea></td>
+        <td><textarea name="Text1" cols="10" rows="2" name="authors" style="border:none;outline:none;background-color:#f9f9f9">{{p.authors}}</textarea></td>
+        <td style="text-align: center;"><a href="{% url  "DeletePub"  pk=p.pk %}"><span class="glyphicon glyphicon-trash"></span></a>
+      </tr>  
+
+{% endfor %}
+<br/>
+<!-- POPUP Of Research/Publications -->
+  <div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-card-8 w3-animate-zoom" style="max-width:600px">
+
+      <div class="w3-center"><br>
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-closebtn w3-hover-red w3-container w3-padding-8 w3-display-topright" title="Close Modal">&times;</span>
+       <h3>Add Research/Publication</h3>
+      </div>
+<br/>
+      <form action="{% url  "AddPub" %}" method="POST">{% csrf_token %}
+        <div class="w3-section">
+
+          <label><b>Title of Paper/Book</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" name="title" type="text" placeholder=""  required>
+           <label><b>Journal/Conference</b></label><br/><br/>
+          <label class="radio-inline"><input type="radio" name="j_c" value="Journal" />Journal</label>
+          <label class="radio-inline"><input type="radio" name="j_c" value="Conference" />Conference</label><br/><br/>
+           <label><b>Journal/Conference Name</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="" name="j_c_name" required>
+           <label><b>ISSN/ISBN No.</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="" name="issn_isbn" required>
+           <label><b>International/National</b></label><br/><br/>
+          <label class="radio-inline"><input type="radio" name="n_in" value="International"/>International</label>
+          <label class="radio-inline"><input type="radio" name="n_in" value="National"/>National</label><br/><br/>
+
+           <label><b>Name Of Author(s)</b></label>
+          <textarea name="authors" class="w3-input w3-border w3-margin-bottom" cols="10" rows="2" ></textarea>
+          
+          <button class="w3-btn-block  w3-section w3-padding" style="background-color: #cfd8dc;color:black;" type="submit">Save</button>
+        </div>
+      </form>
+
+    
+<!--  &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&     -->
+    </div>
+  </div>
+   </tbody>
+  </table>
+  </div>
+  
+  <br/><br/><br/>
+  <h3> Academic Contribution </h3> <br/>
+  <div style="height:500px;">
+  
+  <table class="w3-table w3-bordered" style="overflow-y:scroll;">
+    <button  onclick="document.getElementById('id02').style.display='block'" style="border-radius: 100%;" class="w3-btn w3-shadow"><b>+</b></button>
+  <br/><br/>
+    <thead>
+      <tr style="background-color: #cfd8dc;">
+        <th>S.No.</th>
+        <th>Title Of Thesis</th>
+        <th>Enrollemnt Date/Session</th>
+        <th>Degree</th>
+        <th>Date Of thesis Submission</th>
+        <th><button type="button" class="btn btn-default btn-sm" style="background-color:#cfd8dc;  "><span class="glyphicon glyphicon-trash"></span> Delete All</button>
+      </tr>
+    </thead>
+    <tbody>
+{% for r in res %}
+<input type="hidden" name="pk" value="{{r.pk}}"/>     
+	<tr >
+     <td><input type="text" style="border:none;width:50px;outline:none;background-color:#f9f9f9" value="{{r.pk}}"/></td>
+        <td  name="title">{{r.title}}</td>
+        <td><textarea name="Text1" cols="10" rows="2" name="enroll" style="border:none;outline:none;background-color:#f9f9f9">{{r.enroll}}</textarea></td>
+        <td><textarea name="Text1" cols="10" rows="2" name="degreeStudent" style="border:none;outline:none;background-color:#f9f9f9">{{r.degreeStudent}}</textarea></td>
+        <td><textarea name="Text1" cols="10" rows="2" name="sub_date" style="border:none;outline:none;background-color:#f9f9f9">{{r.sub_date}}</textarea></td>
+        <td style="text-align: center;"><a href="{% url  "DeleteRes"  pk=r.pk %}"><span class="glyphicon glyphicon-trash"></span></a>
+       
+        
+      </tr>
+{% endfor %}
+   </tbody>
+  </table>
+  <!-- POPUP Of Academic Contribution -->
+      <div id="id02" class="w3-modal">
+    <div class="w3-modal-content w3-card-8 w3-animate-zoom" style="max-width:600px">
+
+      <div class="w3-center"><br>
+        <span onclick="document.getElementById('id02').style.display='none'" class="w3-closebtn w3-hover-red w3-container w3-padding-8 w3-display-topright" title="Close Modal">&times;</span>
+       <h3>Add Academic Contribution</h3>
+      </div>
+<br/>
+      <form class="w3-container" action="{% url  "AddRes" %}" method="POST">{% csrf_token %}
+        <div class="w3-section">
+          <label><b>Title of Thesis</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="" name="title" required>
+           <label><b>Enrollemnt Date/Session</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="date" placeholder="" name="enroll" required>
+           <label><b>Degree</b></label>
+          <select class="form-control" id="sel1" name="degreeStudent">
+            <option value = "B.Tech(CSE)">B.Tech(CSE)</option>
+            <option value = "B.Tech(ME)">B.Tech(ME)</option>
+            <option value = "B.Tech(CE)">B.Tech(CE)</option>
+            <option value = "B.Tech(EE)">B.Tech(EE)</option></select><br/>
+           <label><b>Date Of thesis Submission</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="" name="sub_date" required>
+          
+          <button class="w3-btn-block  w3-section w3-padding" style="background-color: #cfd8dc;color:black;" type="submit">Save</button>
+        </div>
+      </form>
+
+  
+  </div>
+  
+  
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body>
+<style>
+textarea { resize: none; }
+</style>
+</html>

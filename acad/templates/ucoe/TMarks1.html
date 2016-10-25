@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load staticfiles %}
+  <title>Marks</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'bootstrap-3.3.5-dist/css/bootstrap.min.css' %}">
+  <script src="{% static 'bootstrap-3.3.5-dist/js/jquery.min.js' %}"></script>
+  <script src="{% static 'bootstrap-3.3.5-dist/js/bootstrap.min.js' %}"></script>
+  <script type="text/javascript" >
+		function loginme(){
+        document.getElementById('save').submit();
+    }
+  </script>
+</head>
+<body>
+<div class="container-fluid" style="background-color:#607d8b; color:white;text-align:center;">
+  <h2>Marks</h2>
+  <ul class="nav navbar-nav navbar-right">
+  		 <li class="dropdown">
+    <a href="" style="color:#c0c7d1;" class="dropdown-toggle"  data-toggle="dropdown"><span class="glyphicon glyphicon-th-large"></span> Navigation
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu" >
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HOME</a></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Marks</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Attendance</a></li>
+      <li role="presentation" class="divider"></li>  
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Syllabus</a></li>   
+		<li role="presentation" class="divider"></li>      
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">MyShare</a></li>
+		<li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Softwares</a></li>   
+		<li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Notes</a></li>   
+        
+    </ul>
+  </li>
+		 <li><a href="#" style="color:#c0c7d1;"><span class="glyphicon glyphicon-refresh"></span> </a></li>
+       <li><a href="{% url "Logout" %}" style="color:#c0c7d1;"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul> 
+</div>
+<div class="container-fluid" style="background-color:#D3D9DF;text-align:center;color:#607d8b;">
+{% if teacher.teacher.gender == "M" %}
+<h4>Greetings Mr. {{teacher.teacher.name}}</h4>
+{% endif %}
+{% if teacher.teacher.gender == "F" %}
+<h4>Greetings Ms. {{teacher.teacher.name}}</h4>
+{% endif %}
+</div>
+<br>
+<br>
+<div class="row">
+<div class="col-sm-2">
+<h3 style="text-align: center;">Batches</h3>
+<div class="list-group" style="background-color: #cfd8dc;text-align: center;">
+  {% for i in batches %}
+  	<a href="{% url  "TMarksBatch"  pk=i.batch.pk %}" class="list-group-item" >{{i.batch.group}}</a>
+  {% endfor %}
+</div>
+</div>
+<div class="col-sm-1"></div>
+<div class="col-sm-8" style="height: 500px ;">
+<h3 style="text-align: left;">Batch : {{batch.group}} </h3>
+ <form method="post" action="{% url "SaveTMarks" %}" name="save">{% csrf_token %}
+  <input type="hidden" value="{{batch.pk}}" name="batch"/>
+ <table class="table table-bordered" style="width:730px;">
+    <thead style="position: relative;display: block;" >
+      <tr>
+        <th style="width: 117px;border:none;border-right:1px solid #DDDDDD;border-left:1px solid #DDDDDD;">Roll-No.</th>
+        <th style="width: 117px;border:none;border-right:1px solid #DDDDDD;border-left:1px solid #DDDDDD;">Name</th>
+        <th style="width:84px;border:none;border-right:1px solid #DDDDDD;border-left:1px solid #DDDDDD;">Mst-1</th>
+		<th style="width:84px;border:none;border-right:1px solid #DDDDDD;border-left:1px solid #DDDDDD;">Mst-2</th>
+		<th style="border:none;border-right:1px solid #DDDDDD;border-left:1px solid #DDDDDD;">Attendance</th>
+		<th style="width:120px;" scope="col" colspan="2">Evaluation	</th>
+				<th style="width:95px;border:none;border-right:1px solid #DDDDDD;border-left:1px solid #DDDDDD;">Total</th>
+      </tr>
+    </thead>
+    <tbody style="display: block ; overflow-y: scroll;height: 400px;">
+       <tr>
+        <td style="border:none;width: 100px;border-right:1px solid #DDDDDD;border-left:1px solid #DDDDDD;border-bottom:1px solid #DDDDDD;"></td>
+      <td style="border:none;width: 100px;border-right:1px solid #DDDDDD;border-left:1px solid #DDDDDD;border-bottom:1px solid #DDDDDD;"></td>
+<td style="border:none;width: 67px;border-right:1px solid #DDDDDD;border-left:1px solid #DDDDDD;border-bottom:1px solid #DDDDDD;"></td>
+<td style="border:none;width: 68px;border-right:1px solid #DDDDDD;border-left:1px solid #DDDDDD;border-bottom:1px solid #DDDDDD;"></td>
+<td style="border:none;width: 96px;border-right:1px solid #DDDDDD;border-left:1px solid #DDDDDD;border-bottom:1px solid #DDDDDD;"></td>
+<td style="border:none;width:40px;outline:none;border-bottom:1px solid #DDDDDD;">Asses.</td>
+<td style="border:none;width:39px;border-right:1px solid #DDDDDD;border-bottom:1px solid #DDDDDD;border-left:1px solid #DDDDDD">Sports</td>
+<td  style="border:none;width:95px;border-right:1px solid #DDDDDD;border-bottom:1px solid #DDDDDD;border-left:1px solid #DDDDDD"></td>
+</tr>
+      
+	{% if students %}
+        {% for student in students %}
+	<tr>
+        <td><input type="text" style="border:none;outline:none; width:100px;" value="{{student.roll_no}}"></td>
+        <td><input type="text" style="border:none;outline:none; width:100px;" value="{{student.name}}"/></td>
+        <td><input type="text" name="{{student.roll_no}}_1" style="border:none;width:67px;outline:none;" value="0"/></td>
+		<td><input type="text" name="{{student.roll_no}}_2" style="border:none;width:67px;outline:none;" value="0"/></td>
+		<td><input type="text" name="{{student.roll_no}}_3" style="border:none;width:79px;outline:none;" value="0"/></td>
+        <td><input type="text" name="{{student.roll_no}}_4" style="border:none;width:43px;outline:none;" value="0"/></td>
+		<td><input type="text" name="{{student.roll_no}}_5" value="0" style="border:none;width:43px;outline:none;" /></td>
+	</tr>
+	{% endfor %}     
+	{% else %}
+	{% for t in table %}
+	<tr>
+        <td><input type="text" style="border:none;outline:none; width:190px;" value="{{t.1.roll_no}}"></td>
+        <td><input type="text" style="border:none;outline:none; width:190px;" value="{{t.1.name}}"/></td>
+        <td><input type="text" name="{{t.1.roll_no}}_1" style="border:none;width:67px;outline:none;" value="{{t.0.mst1}}"/></td>
+		<td><input type="text" name="{{t.1.roll_no}}_2" style="border:none;width:67px;outline:none;" value="{{t.0.mst2}}"/></td>
+		<td><input type="text" name="{{t.1.roll_no}}_3" style="border:none;width:79px;outline:none;" value="{{t.0.att}}"/></td>
+        <td><input type="text" name="{{t.1.roll_no}}_4" style="border:none;width:43px;outline:none;" value="{{t.0.assessment}}"/></td>
+		<td><input type="text" name="{{t.1.roll_no}}_5" value="{{t.0.sports}}" style="border:none;width:43px;outline:none;" /></td>
+	</tr>
+	{% endfor %}     
+	{% endif %}
+      <!--tr>
+      <td></td>
+      <td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+   	<td><button>Calculate</button></td> </tr-->
+    </tbody>
+    
+  </table>
+  <br>
+   <button class="btn btn-default" onclick="loginme();" style="width:730px;">Save</button>
+  </form>
+  
+<br>
+<br>
+ </div>
+
+</div>
+</body>
+<style>
+th{text-align: center;
+}
+input{text-align: center;}
+</style>
+</html>

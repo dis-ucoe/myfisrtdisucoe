@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load staticfiles %}
+  <title>TAttendance</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'bootstrap-3.3.5-dist/css/bootstrap.min.css' %}">
+  <script src="{% static 'bootstrap-3.3.5-dist/js/jquery.min.js' %}"></script>
+  <script src="{% static 'bootstrap-3.3.5-dist/js/bootstrap.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'jquery-ui.css' %}">
+<script src="{% static 'jquery.min.js' %}"></script>
+<script src="{% static 'jquery-ui.min.js' %}"></script>
+ 
+ 
+<script>
+ $(document).ready(function() {
+    $("#datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+  });
+$(document).ready(function(){
+    $("#add").click(function(){
+        $("#Add").show(1000);
+        $("#View").hide(1000);
+        $("#Edit").hide(1000);
+    });
+    $("#view").click(function(){
+		$("#Add").hide(1000);
+		$("#View").show(1000);
+		$("#Edit").hide(1000);
+	});	
+	$("#edit").click(function () {
+		$("#Add").hide(1000);
+		$("#View").hide(1000);
+		$("#Edit").show(1000);
+	});
+   
+    $("#conf").click(function () {
+    	if (confirm("Are You Sure ..?")){
+			 $("#conf").html("Edit");
+			 $("#note").html("**Todays Attendance is Marked");
+			  	
+    	}
+    });
+});
+</script>
+</head>
+<body>
+
+<div class="container-fluid" style="background-color:#5a687b;color:white;text-align:center;">
+<br>
+  <h2>Attendance</h2>
+<ul class="nav navbar-nav navbar-right">
+		 <li class="dropdown">
+    <a href="" style="color:#c0c7d1;" class="dropdown-toggle"  data-toggle="dropdown"><span class="glyphicon glyphicon-th-large"></span> Navigation
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu" >
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HOME</a></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Marks</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Attendance</a></li>
+      <li role="presentation" class="divider"></li>  
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Syllabus</a></li>   
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">MyShare</a></li>
+		<li role="presentation" class="divider"></li>
+    </ul>
+  </li>
+		 <li><a href="#" style="color:#c0c7d1;"><span class="glyphicon glyphicon-refresh"></span> </a></li>
+       <li><a href="{% url "Logout" %}" style="color:#c0c7d1;"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
+
+</div>
+<div class="container-fluid" style="background-color:#dfe3e8;text-align:center;color:#607d8b;">
+{% if teacher.teacher.gender == "M" %}
+<h4>Greetings Mr. {{teacher.teacher.name}}</h4>
+{% endif %}
+{% if teacher.teacher.gender == "F" %}
+<h4>Greetings Ms. {{teacher.teacher.name}}</h4>
+{% endif %}
+
+</div>
+<br>
+<br>
+
+<div class"row">
+<div class="col-sm-2">
+<h3 style="text-align: center;">Batches</h3>
+<div class="list-group" style="background-color: #cfd8dc;text-align: center;">
+  {% for i in batches %}
+  	<a href="{% url  "TAttBatch"  pk=i.batch.pk %}" class="list-group-item" >{{i.batch.group}}</a>
+  {% endfor %}
+</div>
+</div>
+<div class="col-sm-1"></div>
+<div class="col-sm-8">
+<h3 style="background-color:#D3D3D3;text-align:center;">Batch : {{batch.group}}</h3>
+<button id="add" style="width:40%;" >Add</button>
+<button id="view" style="width: 37%">View</button>
+<button id="edit" style="width: 20%">Edit</button>
+<br>
+<br>
+<form  action="{% url "SaveTAtt" %}"  method="post" >{% csrf_token %}
+
+<input type="hidden" value="{{batch.pk}}" name="batch" />
+<div id="Add" >
+<div style="height: 500px;overflow-y: scroll;text-align:center;">
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th style="text-align:center;">Roll-No</th>
+        <th style="text-align:center;">Name</th>
+        <th style="text-align:center;">P/A</th>
+      </tr>
+    </thead>
+    <tbody>
+		{% for attendance in attendances %}
+	      <tr>
+		<td>{{attendance.student.roll_no}}</td>
+		<td>{{attendance.student.name}}</td>
+		{% if attendance.p_a %}
+			<td><input type="checkbox" id="checkbox" name="checks" checked="checked" value="{{attendance.student.roll_no}}" ></td>
+		{% else %}
+			<td><input type="checkbox" id="checkbox" name="checks" value="{{attendance.student.roll_no}}" ></td>
+		{% endif %}
+	      </tr>
+		{% empty %}
+			{% for student in students %}
+			      <tr>
+				<td>{{student.roll_no}}</td>
+				<td>{{student.name}}</td>
+				<td><input type="checkbox" id="checkbox" name="checks" checked="checked" value="{{student.roll_no}}" ></td>
+				</tr>
+			{% endfor %}
+		{% endfor %}
+	
+    </tbody>
+  </table>
+</div>
+  <button style="width:100%;" id="conf">Save</button>
+</form>
+  <h4 id="note" style="font-style:italic;"></h4>
+<br/>
+<br/>
+<br/>
+</div>
+<div id="View" style="display: none;">
+<br/>
+<form action="{% url 'MonthViewTAtt' %}" method="post">{% csrf_token %}
+<div class="form-group" >
+	<input type="hidden" value="{{batch.pk}}" name="batch" />
+      &nbsp;&nbsp;&nbsp;<select style="display:inline;width:70%;" class="form-control" id="sel1" name="month">
+        <option value="0">--Month--</option>
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+	<option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+	<option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+	<button style="display:inline;width:20%;" >Fetch</button>
+</div>
+</form><br/>
+<div style="height: 500px;overflow: scroll;text-align: center;">
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th style="text-align:center;">Roll-No</th>
+        <th style="text-align:center;">Name</th>
+	{% for d in v_dates %}
+        <th  style="text-align:center;">{{d}}</th>
+	{% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      
+	{% for att in v_att %}
+	<tr>
+		<td>{{att.0}}</td>
+		<td>{{att.1}}</td>
+		{% for a in att.2 %}
+		<td>{{a}}</td>
+		{% endfor %}
+	</tr>
+	{% endfor %}
+
+    </tbody>
+  </table>
+</div>
+
+</div>
+<div id="Edit" style="display:none;"><br>
+<div style="text-align:center;">
+<form  action="{% url "ViewTAtt" %}"  method="post" >{% csrf_token %}
+<input type="hidden" value="{{batch.pk}}" name="batch" />
+<label>Date :</label> <input id="datepicker" class="form-control" placeholder="dd/mm/yyyy" style="display:inline;width:20%;" name="date"/>
+<button class="btn btn-default">Go</button>
+</form>
+</div><br>
+<br>
+<form  action="{% url "DateSaveTAtt" %}"  method="post" >{% csrf_token %}
+	<div style="height: 500px;overflow: scroll;">
+
+<input type="hidden" value="{{ datestr }}" name="date" />
+<input type="hidden" value="{{batch.pk}}" name="batch" />
+<table class="table table-striped">
+      <thead>
+      <tr>
+        <th  style="text-align:center;">Roll-No</th>
+        <th  style="text-align:center;">Name</th>
+        <th  style="text-align:center;">{{ datestr }}</th>
+      </tr>
+    </thead>
+    <tbody>
+	{% for attendance in dv_att %}
+	      <tr>
+		<td  style="text-align:center;">{{attendance.student.roll_no}}</td>
+		<td  style="text-align:center;">{{attendance.student.name}}</td>
+		{% if attendance.p_a %}
+			<td  style="text-align:center;"><input type="checkbox" id="checkbox" name="checks" checked="checked" value="{{attendance.student.roll_no}}" ></td>
+		{% else %}
+			<td><input type="checkbox" id="checkbox" name="checks" value="{{attendance.student.roll_no}}" ></td>
+		{% endif %}
+	      </tr>
+	{% endfor %}
+      
+    </tbody>
+ </table>
+
+ </div>
+ <br>
+ <button style="width:100%;" id="conf">Save</button>      
+</form>
+</div>
+</div>
+</div>
+</body>
+<style>
+</style>
+
+</html>

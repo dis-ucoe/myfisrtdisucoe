@@ -1,0 +1,108 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LOGIN</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./bootstrap-3.3.5-dist/css/bootstrap.min.css">
+  <script src="./bootstrap-3.3.5-dist/js/jquery.min.js"></script>
+  <script src="./bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#Login").click(function(){
+        $("#login").show(1000);
+        $("#reg").hide(1000);
+    });
+    $("#Reg").click(function(){
+		$("#login").hide(1000);
+		$("#reg").show(1000);    
+    });
+});
+</script>
+
+
+  
+
+</head>
+<body>
+
+<div class="container-fluid" style="background-color:#3c6160; color:white;text-align:center;">
+<br>
+  <h2>Research And Skill Development Centre</h2>
+<ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span style="color:white;font-size: 20px;" class="glyphicon glyphicon-home"></span></a></li>
+      </ul>
+</div>
+<br>
+<br>
+<br>
+<br>
+<div class="row">
+<div class="col-sm-4"></div>
+<div class="col-sm-4">
+<div id="login">
+<div  class="container-fluid" style="background-color:#558c89; color:white;text-align:center;">
+  <h3>LOGIN</h3>
+</div>
+<br>
+ <form role="form">
+  <div class="form-group">
+    <label for="UserID">User ID:</label>
+    <input type="email" class="form-control" id="UserID">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" class="form-control" id="pwd">
+  </div>
+  
+  <button type="button" style="border-bottom-style: outset;border-radius: 0 !important; height: 40px; background-color: #2b4644; color: white;" class="btn-block">login</button>
+</form>
+<br>
+<br>
+<div  style="text-align: center; ">
+	 <a href="#" id="Reg" style="color:grey;">Register</a>
+	 
+          <span class="glyphicon glyphicon-certificate"></span>
+        <a href="#" style="color:grey;">Forgot Password</a>
+  </div>
+</div>
+<div id="reg" style="display: none;">
+<div  class="container-fluid" style="background-color:#558c89; color:white;text-align:center;">
+  <h3>Register</h3>
+</div>
+<br>
+ <form role="form">
+  <div class="form-group">
+    <label for="UserID">Username</label>
+    <input type="text" class="form-control" id="UserID">
+  </div>
+  <div class="form-group">
+    <label for="UserID">Email ID</label>
+    <input type="email" class="form-control" id="UserID">
+  </div>
+
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" class="form-control" id="pwd">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Confirm Password:</label>
+    <input type="password" class="form-control" id="pwd">
+  </div>
+  
+  <button type="button" style="border-bottom-style: outset;border-radius: 0 !important; height: 40px; background-color: #2b4644; color: white;" class="btn-block">Register</button>
+</form>
+<br>
+<br>
+<div  style="text-align: center; ">
+	 <a href="#" id="Login" style="color:grey;">Login</a>
+  </div>
+</div>
+
+
+</div>
+</div>
+<div class="col-sm-4"></div>
+</div>
+</body>
+</html>

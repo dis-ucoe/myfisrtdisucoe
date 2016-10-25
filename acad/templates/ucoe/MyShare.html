@@ -1,0 +1,89 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+{% load staticfiles %}
+  <title>Myshare</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'bootstrap-3.3.5-dist/css/bootstrap.min.css' %}">
+  <script src="{% static 'bootstrap-3.3.5-dist/js/jquery.min.js' %}"></script>
+  <script src="{% static 'bootstrap-3.3.5-dist/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+
+<div class="container-fluid" style="background-color:#5a687b;color:white;text-align:center;">
+<br>
+  <h2>My Share</h2>
+<ul class="nav navbar-nav navbar-right">
+		 <li class="dropdown">
+    <a href="" style="color:#c0c7d1;" class="dropdown-toggle"  data-toggle="dropdown"><span class="glyphicon glyphicon-th-large"></span> Navigation
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu" >
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HOME</a></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Marks</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Attendance</a></li>
+      <li role="presentation" class="divider"></li>  
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Syllabus</a></li>   
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">MyShare</a></li>
+		<li role="presentation" class="divider"></li>
+    </ul>
+  </li>
+		 <li><a href="#" style="color:#c0c7d1;"><span class="glyphicon glyphicon-refresh"></span> </a></li>
+       <li><a href="{% url "Logout" %}" style="color:#c0c7d1;"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
+
+</div>
+<div class="container-fluid" style="background-color:#D3D9DF;text-align:center;color:#607d8b;">
+{% if teacher.teacher.gender == "M" %}
+<h4>Greetings Mr. {{teacher.teacher.name}}</h4>
+{% endif %}
+{% if teacher.teacher.gender == "F" %}
+<h4>Greetings Ms. {{teacher.teacher.name}}</h4>
+{% endif %}
+{% if student.student.gender == "M" %}
+<h4>Greetings Mr. {{student.student.name}}</h4>
+{% endif %}
+{% if student.gender == "F" %}
+<h4>Greetings Ms. {{student.student.name}}</h4>
+{% endif %}
+</div>
+<br><br><br>
+<h3> Your password is : {{teacher.teacher.smb_passwd}}</h3>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="ftp://172.16.14.132" style="position:center;background-color:#D3D9DF;text-align:center;color:#607d8b;">Anon Share</a> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'DownloadFile' %}" style="position:center;background-color:#D3D9DF;text-align:center;color:#607d8b;">User Share</a><br><br><br><br>
+<div class="row">
+<div class="col-sm-2" ></div>
+<div class="col-sm-8">
+<div class="panel panel-default">
+  <div class="panel-heading" style="background-color: #a0abba;color: white;">
+  <a href="" ><span class="glyphicon glyphicon-arrow-left"></span></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="" ><span class="glyphicon glyphicon-arrow-right"></span></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="" ><span class="glyphicon glyphicon-refresh"></span></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="" ><span class="glyphicon glyphicon-plus">Upload</span></a> 
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="/home/jatin/Desktop/MyShare" ><span class="glyphicon glyphicon-folder-open"> New Folder</span></a>
+  
+  </div>
+  <div class="panel-body" style="height:600px;">
+  
+
+</iframe> 
+  
+  
+  </div>
+</div>
+
+</div>
+</div>
+</body>
+<style>
+a{
+color: white;
+}
+</style>
+</html>
